@@ -1,25 +1,21 @@
-```yaml
 version: 0.2
 
 phases:
   pre_build:
     commands:
-      - echo "Logging in to Docker Hub..."
-      - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+      - echo "Starting Docker login"
 
   build:
     commands:
-      - echo "Build started"
-      - echo "Building Docker image..."
-      - docker build -t docker.io/sharans1903-a11y/backend:latest .
+      - echo "Building Docker image"
+      - docker build -t sharans1903-a11y/backend:latest .
 
   post_build:
     commands:
-      - echo "Build completed"
-      - docker push docker.io/sharans1903-a11y/backend:latest
+      - echo "Pushing Docker image"
+      - docker push sharans1903-a11y/backend:latest
       - printf '[{"name":"backend-container","imageUri":"docker.io/sharans1903-a11y/backend:latest"}]' > imagedefinition.json
 
 artifacts:
   files:
     - imagedefinition.json
-```
