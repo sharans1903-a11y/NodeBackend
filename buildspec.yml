@@ -1,9 +1,10 @@
 version: 0.2
+
 phases:
   pre_build:
     commands:
       - echo Logging in to DockerHub...
-      - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS
+      - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
       - REPOSITORY_URI="docker.io/sharan4192/backend"
       - CONTAINER_NAME="backend-container"
       - IMAGE_TAG="latest"
@@ -18,5 +19,6 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"'$CONTAINER_NAME'","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinition.json
+
 artifacts:
     files: imagedefinition.json
