@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to DockerHub...
+      - echo Logging in to DockerHub....
       - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
       - REPOSITORY_URI="docker.io/sharan4192/backend"
       - CONTAINER_NAME="backend-container"
